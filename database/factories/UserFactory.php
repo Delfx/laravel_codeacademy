@@ -21,7 +21,7 @@ class UserFactory extends Factory
 
         return [
             'name' => fake()->name(),
-            'type_id' => fake()->numberBetween(1,2),
+            'type_id' => fake()->numberBetween(1,3),
             'age' => fake()->numberBetween(17, 80),
             'gender' => $gender,
             'address' => fake()->streetAddress(),
