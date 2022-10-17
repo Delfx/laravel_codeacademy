@@ -46,6 +46,10 @@
 
     </form>
 
+    @push('scripts')
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    @endpush
+
 
     <!-- SB Forms JS -->
 @endsection
