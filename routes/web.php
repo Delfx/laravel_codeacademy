@@ -25,4 +25,8 @@ Route::get('/dashboard', function () {
 
 Route::get('/users', [\App\Http\Controllers\UserController::class, 'showUsers']);
 
+Route::get('/products', [\App\Http\Controllers\ProductController::class, 'showProducts']);
+
+Route::get('/order', [\App\Http\Controllers\OrderController::class, 'showOrder']);
+
 require __DIR__ . '/auth.php';
