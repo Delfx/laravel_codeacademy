@@ -29,4 +29,6 @@ Route::get('/products', [\App\Http\Controllers\ProductController::class, 'showPr
 
 Route::get('/order', [\App\Http\Controllers\OrderController::class, 'showOrder']);
 
+Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'contact']);
+
 require __DIR__ . '/auth.php';
