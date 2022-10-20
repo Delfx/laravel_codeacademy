@@ -30,7 +30,7 @@ class ProductController extends Controller
            'Price Up', 'Price Down'
         ];
 
-        if($request->get('filterByPrice') == 'Filter by price'){
+        if($request->get('filterByPrice') !== 'Price Up' || $request->get('filterByPrice') !== 'Price Down' ){
             $productQuery->get();
         }elseif ($request->get('filterByPrice') == 'Price Up') {
             $productQuery->orderBy('price');
@@ -38,13 +38,7 @@ class ProductController extends Controller
             $productQuery->orderBy('price', 'DESC');
         }
 
-
-
-
         $products = $productQuery->get();
-
-
-
 
         return view('products.products', compact('products', 'productCategories', 'filersProducts'));
     }
