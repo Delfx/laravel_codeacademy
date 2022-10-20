@@ -15,11 +15,22 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+
+            $table->boolean('is_active')->default(FALSE);
+
+            $table->foreignId('category_id')->constrained('product_categories');
+
+            $table->unsignedTinyInteger('stock')->default(0);
+
             $table->string('name');
-            $table->integer('price');
-            $table->integer('count');
-            $table->string('description');
+            $table->text('description');
+
+            $table->string('identifier')->unique();
+
+            $table->decimal('price', 10, 2)->nullable();
+
+            $table->json('details')->nullable();
+
             $table->timestamps();
         });
     }

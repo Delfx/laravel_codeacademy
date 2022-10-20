@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
-            $table->float('amount', 8, 2);
+
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('order_id')->constrained();
+
+            // $table->unsignedTinyInteger('state')->default(0)->comment('pending - 0, completed - 1, rejected - 2');
+            $table->enum('state', ['pending', 'completed', 'rejected'])->default('pending');
+
             $table->timestamps();
         });
     }
