@@ -59,7 +59,7 @@ class ProductController extends Controller
             'name' => 'required|max:255',
             'description' => 'required',
             'identifier' => 'required',
-            'category_id' => 'required'
+            'categories' => 'required'
         ]);
 
         $product = Product::create([
@@ -86,8 +86,8 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'description' => 'required',
+            'categories' => 'required',
             'identifier' => 'required',
-            'category_id' => 'required',
         ]);
 
         $productUpdate = Product::find($id);
