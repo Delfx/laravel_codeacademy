@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Http\Requests\ProductRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
@@ -53,14 +54,10 @@ class ProductController extends Controller
         return view('products.create', compact('productCategory'));
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'identifier' => 'required',
-            'categories' => 'required'
-        ]);
+
+        $request->validated();
 
         $product = Product::create([
             'name' => $request->name,
@@ -80,15 +77,17 @@ class ProductController extends Controller
         return view('products.update', compact('product', 'productCategories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
 
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'categories' => 'required',
-            'identifier' => 'required',
-        ]);
+        // $request->validate([
+        //     'name' => 'required|max:255',
+        //     'description' => 'required',
+        //     'categories' => 'required',
+        //     'identifier' => 'required',
+        // ]);
+
+        $request->validated();
 
         $productUpdate = Product::find($id);
 

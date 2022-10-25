@@ -14,6 +14,10 @@
         <textarea class="form-control" name="description" id="productDescription" rows="3">{{ fake()->paragraph(2) }}</textarea>
     </div>
 
+    @error('description')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+
     <div class="mb-3">
         <label for="name" class="form-label">Category</label>
         <select name="categories" class="form-select" aria-label="Select">
@@ -23,11 +27,19 @@
         </select>
     </div>
 
+    @error('categories')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+
     <div class="mb-3">
         <label for="identifier" class="form-label">Identifier</label>
         <input type="text" class="form-control" name="identifier" id="createProductDescription"
             value="{{ fake()->ean13() }}" placeholder="{{ fake()->ean13() }}">
     </div>
+
+    @error('identifier')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 
     <button type="Save" class="btn btn-primary">Submit</button>
 </form>
