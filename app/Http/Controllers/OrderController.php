@@ -12,4 +12,6 @@ class OrderController extends Controller
         $orders = Order::get();
         return view('products.order', ['orders' => $orders]);
     }
+
+
 }

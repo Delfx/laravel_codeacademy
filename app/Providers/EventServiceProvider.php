@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\ProductCategory;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\View;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,7 +29,11 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // View::composer('products.create', function($view) {
+        //     $categories = ProductCategory::limit(4)->get();
+
+        //     $view->with('categories', $categories);
+        // });
     }
 
     /**

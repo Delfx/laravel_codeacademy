@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -23,12 +23,20 @@ Route::get('/dashboard', function () {
 
 
 
-Route::get('/users', [\App\Http\Controllers\UserController::class, 'showUsers']);
+// Route::get('/users', [\App\Http\Controllers\UserController::class, 'showUsers']);
+// Route::get('/order', [\App\Http\Controllers\OrderController::class, 'showOrder']);
+// Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'contact']);
 
-Route::get('/products', [\App\Http\Controllers\ProductController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\ProductController::class, 'index'])->name('index');
 
-Route::get('/order', [\App\Http\Controllers\OrderController::class, 'showOrder']);
+Route::get('/create', [\App\Http\Controllers\ProductController::class, 'create']);
+Route::post('/store', [\App\Http\Controllers\ProductController::class, 'store']);
 
-Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'contact']);
+Route::get('/products/view/{product}', [\App\Http\Controllers\ProductController::class, 'view'])->name('productView');
+Route::get('/{product}/edit', [\App\Http\Controllers\ProductController::class, 'edit'])->name('edit');
+Route::post('/update/{id}', [\App\Http\Controllers\ProductController::class, 'update'])->name('update');
+
+Route::get('/orderproduct', [\App\Http\Controllers\OrderProductController::class, 'show'])->name('order');
+Route::get('/storeOrders/{id}', [\App\Http\Controllers\OrderProductController::class, 'store'])->name('store');
 
 require __DIR__ . '/auth.php';
