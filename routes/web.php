@@ -35,8 +35,11 @@ Route::post('/store', [\App\Http\Controllers\ProductController::class, 'store'])
 Route::get('/products/view/{product}', [\App\Http\Controllers\ProductController::class, 'view'])->name('productView');
 Route::get('/{product}/edit', [\App\Http\Controllers\ProductController::class, 'edit'])->name('edit');
 Route::post('/update/{id}', [\App\Http\Controllers\ProductController::class, 'update'])->name('update');
+Route::get('/product/delete/{id}', [\App\Http\Controllers\ProductController::class, 'delete'])->name('deleteProduct');
 
 Route::get('/orderproduct', [\App\Http\Controllers\OrderProductController::class, 'show'])->name('order');
 Route::get('/storeOrders/{id}', [\App\Http\Controllers\OrderProductController::class, 'store'])->name('store');
+Route::get('/orderproduct/delete/{id}', [\App\Http\Controllers\OrderProductController::class, 'deleteOrderProduct'])->name('deleteOrderProduct');
+
 
 require __DIR__ . '/auth.php';

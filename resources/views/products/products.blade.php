@@ -25,7 +25,11 @@
             </a>
 
             <a class="link-dark text-decoration-none" href="{{ route('store', $product->id) }}">
-                <button class="btn btn-danger">Add to Order</button>
+                <button class="btn btn-secondary">Add to Order</button>
+            </a>
+
+            <a class="link-dark text-decoration-none" href="{{route ('deleteProduct', $product->id)}}">
+                <button class="btn btn-danger">Delete</button>
             </a>
         </div>
     @endforeach

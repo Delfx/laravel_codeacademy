@@ -13,7 +13,10 @@ class OrderProductController extends Controller
         $orderProducts = OrdersProduct::get();
         $productNames = [];
         foreach ($orderProducts as $value) {
-            $productNames[] = Product::where('id', $value['product_id'])->get();
+            $productNames[] = [
+                'productName' => Product::where('id', $value['product_id'])->get(),
+                "orderProductId" => $value->id
+            ];
         }
         return view('ordersProducts.index', compact('productNames'));
     }
@@ -28,5 +31,11 @@ class OrderProductController extends Controller
         return redirect()->route('index');
     }
 
-    
+    public function deleteOrderProduct($id)
+    {
+        $orderProduct = OrdersProduct::find($id);
+        $orderProduct->delete();
+
+        return redirect()->route('order');
+    }
 }

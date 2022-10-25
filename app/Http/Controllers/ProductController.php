@@ -100,4 +100,14 @@ class ProductController extends Controller
 
         return redirect()->route('productView', $id);
     }
+
+    public function delete($id)
+    {
+
+        $product = Product::find($id);
+
+        $product->delete();
+
+        return redirect()->route('index');
+    }
 }
