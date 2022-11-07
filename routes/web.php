@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProductController;
+use App\Http\Resources\ProductResource;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
+use Spatie\FlareClient\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +44,16 @@ Route::get('/product/delete/{id}', [\App\Http\Controllers\ProductController::cla
 Route::get('/orderproduct', [\App\Http\Controllers\OrderProductController::class, 'show'])->name('order');
 Route::get('/storeOrders/{id}', [\App\Http\Controllers\OrderProductController::class, 'store'])->name('store');
 Route::get('/orderproduct/delete/{id}', [\App\Http\Controllers\OrderProductController::class, 'deleteOrderProduct'])->name('deleteOrderProduct');
+
+Route::prefix('vue')->group(function(){
+    Route::get('products', [ProductController::class, 'vueProducts']);
+});
+
+Route::prefix('api/v1')->group(function () {
+    Route::get('products', function(){
+        return ProductResource::collection(Product::all());
+    });
+});
 
 
 require __DIR__ . '/auth.php';
