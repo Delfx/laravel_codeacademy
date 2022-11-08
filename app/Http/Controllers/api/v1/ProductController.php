@@ -13,6 +13,18 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        return ProductResource::collection(Product::all());
+
+        $product = Product::where('is_active', true);
+
+        if ($request->get('searchName')) {
+            $product->where('name', "LIKE" ,"%{$request->get('searchName')}%");
+        }
+
+        if ($request->get('category_id')) {
+            $product->where('category_id', $request->get('category_id'));
+        }
+
+        return ProductResource::collection($product->get());
+
     }
 }

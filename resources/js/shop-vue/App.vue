@@ -8,7 +8,7 @@ const state = reactive({})
 const search = ref([])
 const productCategories = ref([])
 
-let url = '/api/v1/products/'
+let url = '/api/v1/products'
 
 // onBeforeMount(async () => {
 // 	let response = await axios.get('/api/v1/products');
@@ -16,17 +16,12 @@ let url = '/api/v1/products/'
 // 	state.products = response.data.data;
 // });
 
-
-
 function onSubmit() {
-    axios.get(url + search.value).then(response => {
+    axios.get(url + '?searchName=' + search.value).then(response => {
         products.value = response.data.data;
         state.products = response.data.data;
-        console.log(selectedCategories.value);
     })
 }
-
-
 
 const filterByPrices = [
     'Price Up', 'Price Down'
@@ -45,7 +40,6 @@ axios.get('/api/v1/productcategory').then(response => {
 </script>
 
 <template>
-
     <form @submit.prevent="onSubmit" class="mt-2 p-4" action="/" method="get">
         <div class="mb-3">
             <label for="searchField" class="form-label">Datalist example</label>
@@ -77,7 +71,6 @@ axios.get('/api/v1/productcategory').then(response => {
 
         <!-- <a href={{ route('order')}} class="btn btn-secondary">Orders</a> -->
     </form>
-
 
 
     <div v-if="products.length > 0" class="row mt-5 row-cols-1 row-cols-md-3 m-3 text-center">
