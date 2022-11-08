@@ -26,10 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::get('products', [\App\Http\Controllers\api\v1\ProductController::class, 'index']);
+
     Route::get('products/{name}', function($name){
-        return ProductResource::collection(Product::where('name', 'LIKE', "%{$name}%")->get());
+        return ProductResource::collection(Product::where('is_active', true)->where('name', 'LIKE', "%{$name}%")->get());
     });
+
     Route::get('productsfilter', [\App\Http\Controllers\api\v1\ProductController::class, 'index']);
+
     Route::get('productcategory',  function(){
         return ProductCategoryResource::collection(ProductCategory::limit(4)->get());
     });

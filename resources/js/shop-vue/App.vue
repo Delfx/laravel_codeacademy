@@ -19,7 +19,6 @@ let url = '/api/v1/products'
 function onSubmit() {
     axios.get(url + '?searchName=' + search.value).then(response => {
         products.value = response.data.data;
-        state.products = response.data.data;
     })
 }
 
@@ -29,7 +28,7 @@ const filterByPrices = [
 
 axios.get(url).then(response => {
     products.value = response.data.data;
-    state.products = response.data.data;
+    // state.products = response.data.data;
 });
 
 axios.get('/api/v1/productcategory').then(response => {

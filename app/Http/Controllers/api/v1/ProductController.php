@@ -17,7 +17,7 @@ class ProductController extends Controller
         $product = Product::where('is_active', true);
 
         if ($request->get('searchName')) {
-            $product->where('name', "LIKE" ,"%{$request->get('searchName')}%");
+            $product->where('name', 'LIKE' ,"%{$request->get('searchName')}%");
         }
 
         if ($request->get('category_id')) {
