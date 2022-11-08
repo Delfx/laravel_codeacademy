@@ -13,7 +13,6 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        
         return ProductResource::collection(Product::all());
     }
 }

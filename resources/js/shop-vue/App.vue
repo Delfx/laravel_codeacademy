@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { ref, reactive, onBeforeMount, } from 'vue';
 
+const selectedCategories = ref('0')
 const products = ref([])
 const state = reactive({})
 const search = ref([])
@@ -15,12 +16,17 @@ let url = '/api/v1/products/'
 // 	state.products = response.data.data;
 // });
 
+
+
 function onSubmit() {
     axios.get(url + search.value).then(response => {
         products.value = response.data.data;
         state.products = response.data.data;
-    });
+        console.log(selectedCategories.value);
+    })
 }
+
+
 
 const filterByPrices = [
     'Price Up', 'Price Down'
@@ -48,24 +54,20 @@ axios.get('/api/v1/productcategory').then(response => {
         </div>
 
         <div class="mb-3">
-            <select name="filterByCategories" class="form-select" aria-label="Default select example">
-                <option selected>Filter By Category</option>
-
-                <option v-for="productCategory in productCategories">
+            <select v-model="selectedCategories" class="form-select" aria-label="category_id" name="category_id">
+                <option value="0" >Select Category</option>
+                <option v-for="productCategory in productCategories" :value="productCategory.id">
                     {{ productCategory.name }}
                 </option>
-
             </select>
         </div>
 
         <div class="mb-3">
             <select name="filterByPrice" class="form-select" aria-label="Default select example">
                 <option selected>Filter by price</option>
-
                 <option v-for="filterByPrice in filterByPrices">
                     {{ filterByPrice }}
                 </option>
-
             </select>
         </div>
 
