@@ -51,19 +51,7 @@ Route::prefix('vue')->group(function(){
     Route::get('products', [ProductController::class, 'vueProducts']);
 });
 
-Route::prefix('api/v1')->group(function () {
-    Route::get('products', function(){
-        return ProductResource::collection(Product::all());
-    });
-    Route::get('products/{name}', function($name){
-        return ProductResource::collection(Product::where('name', 'LIKE', "%{$name}%")->get());
-    });
-    Route::get('productcategory',  function(){
-        return ProductCategoryResource::collection(ProductCategory::limit(4)->get());
-    });
 
-
-});
 
 
 require __DIR__ . '/auth.php';
