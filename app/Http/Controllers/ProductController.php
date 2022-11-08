@@ -12,36 +12,7 @@ class ProductController extends Controller
 
     public function vueProducts(Request $request)
     {
-        $productQuery = Product::query()->where('is_active', true);
-
-        $productCategoryQuery = ProductCategory::query();
-        $productCategories = $productCategoryQuery->limit(4)->get();
-
-        if ($request->get('searchField')) {
-            $productQuery->where('name', 'LIKE', '%' . $request->get('searchField') . '%');
-        }
-
-        if ($request->get('filterByCategories') == 'Filter By Category') {
-            $productQuery->get();
-        } elseif ($request->get('filterByCategories')) {
-            $productQuery->where('category_id', $request->get('filterByCategories'));
-        }
-
-        $filersProducts = [
-            'Price Up', 'Price Down'
-        ];
-
-        if ($request->get('filterByPrice') !== 'Price Up' || $request->get('filterByPrice') !== 'Price Down') {
-            $productQuery->get();
-        } elseif ($request->get('filterByPrice') == 'Price Up') {
-            $productQuery->orderBy('price');
-        } elseif ($request->get('filterByPrice') == 'Price+Down') {
-            $productQuery->orderBy('price', 'DESC');
-        }
-
-        $products = $productQuery->get();
-
-        return view('vue', compact('products', 'productCategories', 'filersProducts'));
+        return view('vue');
     }
 
     public function index(Request $request)

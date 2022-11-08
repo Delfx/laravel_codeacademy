@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Resources\ProductCategoryResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\Api;
 
@@ -53,6 +55,14 @@ Route::prefix('api/v1')->group(function () {
     Route::get('products', function(){
         return ProductResource::collection(Product::all());
     });
+    Route::get('products/{name}', function($name){
+        return ProductResource::collection(Product::where('name', 'LIKE', "%{$name}%")->get());
+    });
+    Route::get('productcategory',  function(){
+        return ProductCategoryResource::collection(ProductCategory::limit(4)->get());
+    });
+
+
 });
 
 
