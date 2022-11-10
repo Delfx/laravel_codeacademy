@@ -1,17 +1,11 @@
 <script setup>
-import { ref, reactive, onBeforeMount, } from 'vue';
-import FormFilterVue from './FormFilter.vue';
-
-const products = ref([])
-const search = ref([])
-
-let url = '/api/v1/products'
-
-
-axios.get(url).then(response => {
-    products.value = response.data.data;
-    // state.products = response.data.data;
+defineProps({
+    products: Array
 });
+
+
+
+
 
 // onBeforeMount(async () => {
 // 	let response = await axios.get('/api/v1/products');
@@ -22,9 +16,8 @@ axios.get(url).then(response => {
 </script>
 
 <template>
-    <FormFilterVue/>
     <div v-if="products.length > 0" class="row mt-5 row-cols-1 row-cols-md-3 m-3 text-center">
-        <div v-for="product in products" class="col">
+        <div v-for="product in products" :key="product.id" class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">
                     <h4 class="my-0 fw-normal">#{{ product.id }} {{ product.name }}</h4>

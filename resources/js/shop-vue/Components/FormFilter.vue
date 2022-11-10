@@ -1,8 +1,14 @@
 <script setup>
-import { ref, reactive, onBeforeMount, } from 'vue';
+import axios from 'axios';
+import { ref } from 'vue';
+import ShowProductsVue from './ShowProducts.vue';
+
+console.log(axios);
+
+defineProps(['']);
 
 const selectedCategories = ref('0')
-const state = reactive({})
+// const state = reactive({})
 const productCategories = ref([])
 const products = ref([])
 const search = ref([])
@@ -23,11 +29,12 @@ axios.get('/api/v1/productcategory').then(response => {
     productCategories.value = response.data.data;
 });
 
+axios.get(url).then(response => {
+    products.value = response.data.data;
+});
 
 
 </script>
-
-
 <template>
     <form @submit.prevent="onSubmit" class="mt-2 p-4" action="/" method="get">
         <div class="mb-3">
@@ -39,7 +46,7 @@ axios.get('/api/v1/productcategory').then(response => {
         <div class="mb-3">
             <select v-model="selectedCategories" class="form-select" aria-label="category_id" name="category_id">
                 <option value="0">Select Category</option>
-                <option v-for="productCategory in productCategories" :value="productCategory.id">
+                <option v-for="productCategory in productCategories" :key="productCategory.id" :value="productCategory.id">
                     {{ productCategory.name }}
                 </option>
             </select>
@@ -48,7 +55,7 @@ axios.get('/api/v1/productcategory').then(response => {
         <div class="mb-3">
             <select name="filterByPrice" class="form-select" aria-label="Default select example">
                 <option selected>Filter by price</option>
-                <option v-for="filterByPrice in filterByPrices">
+                <option v-for="filterByPrice in filterByPrices" :key="filterByPrice.id">
                     {{ filterByPrice }}
                 </option>
             </select>
@@ -60,4 +67,6 @@ axios.get('/api/v1/productcategory').then(response => {
         <!-- <a href={{ route('order')}} class="btn btn-secondary">Orders</a> -->
     </form>
 
+
+<ShowProductsVue :products='products'/>
 </template>

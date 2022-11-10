@@ -51,6 +51,9 @@ Route::prefix('vue')->group(function(){
     Route::get('products', [ProductController::class, 'vueProducts']);
 });
 
+Route::get('/vue/products/{any}', [ProductController::class, 'vueProducts'])->where('any', '.*');
+
+
 
 
 

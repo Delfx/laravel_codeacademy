@@ -1,11 +1,10 @@
 <script setup>
-import axios from 'axios';
-import { ref, reactive, onBeforeMount, } from 'vue';
-import ShowProducts from './Components/ShowProducts.vue';
+// import ShowProducts from './Components/FormFilter.vue';
+// import router from './router';
 
 </script>
 
 <template>
-<!-- <FormFilterVue/> -->
-<ShowProducts/>
+<!-- <ShowProducts/> -->
+<RouterView></RouterView>
 </template>
