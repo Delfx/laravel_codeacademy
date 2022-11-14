@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductCategoryResource;
 use App\Http\Resources\ProductResource;
@@ -51,7 +52,7 @@ class ProductController extends Controller
 
     }
 
-    public function create(Request $request)
+    public function create(ProductRequest $request)
     {
         $product = Product::create([
             'name' => $request->get('name'),
