@@ -3,12 +3,8 @@ import axios from 'axios';
 import { ref } from 'vue';
 import ShowProductsVue from './ShowProducts.vue';
 
-console.log(axios);
-
-defineProps(['']);
-
 const selectedCategories = ref('0')
-// const state = reactive({})
+const selectedPriceFilter = ref('0')
 const productCategories = ref([])
 const products = ref([])
 const search = ref([])
@@ -16,13 +12,36 @@ const search = ref([])
 let url = '/api/v1/products'
 
 const filterByPrices = [
-    'Price Up', 'Price Down'
+    { 'id': '1', 'name': 'Price Up' },
+    { 'id': '2', 'name': 'Price Down' }
 ];
 
+function getPriceId() {
+    if (selectedPriceFilter.value != 0) {
+        return '&' + 'productPriceFilter_id=' + selectedPriceFilter.value
+    } else {
+        return ''
+    }
+}
+
+function getCategoryId() {
+    if (selectedCategories.value != 0) {
+        return '&' + 'category_id=' + selectedCategories.value
+    } else {
+        return ''
+    }
+}
+
 function onSubmit() {
-    axios.get(url + '?searchName=' + search.value).then(response => {
+    axios.get(url + '?searchName=' + search.value + getCategoryId() + getPriceId()).then(response => {
         products.value = response.data.data;
     })
+}
+
+function resetFilter() {
+    search.value = ''
+    selectedCategories.value = 0;
+    selectedPriceFilter.value = 0;
 }
 
 axios.get('/api/v1/productcategory').then(response => {
@@ -45,28 +64,32 @@ axios.get(url).then(response => {
 
         <div class="mb-3">
             <select v-model="selectedCategories" class="form-select" aria-label="category_id" name="category_id">
-                <option value="0">Select Category</option>
-                <option v-for="productCategory in productCategories" :key="productCategory.id" :value="productCategory.id">
+                <option value="0" disabled>Select Category</option>
+                <option v-for="productCategory in productCategories" :key="productCategory.id"
+                    :value="productCategory.id">
                     {{ productCategory.name }}
                 </option>
             </select>
         </div>
 
         <div class="mb-3">
-            <select name="filterByPrice" class="form-select" aria-label="Default select example">
-                <option selected>Filter by price</option>
-                <option v-for="filterByPrice in filterByPrices" :key="filterByPrice.id">
-                    {{ filterByPrice }}
+            <select v-model="selectedPriceFilter" name="filterByPrice" class="form-select"
+                aria-label="Default select example">
+                <option value="0" disabled>Filter by price</option>
+                <option v-for="filterByPrice in filterByPrices" :key="filterByPrice.id" :value="filterByPrice.id">
+                    {{ filterByPrice.name }}
                 </option>
             </select>
         </div>
 
         <button type="submit" id="submit" class="btn btn-primary me-1">Submit</button>
-        <a href="/" class="btn btn-danger m-1">Reset</a>
-        <a href="/create" class="btn btn-warning m-1">Create</a>
+        <button @click="resetFilter" class="btn btn-danger m-1">Reset</button>
+        <!-- <a href="/create" class="btn btn-warning m-1">Create</a> -->
+        <router-link class="btn btn-warning m-1" :to="{name: 'productCreate'}">
+            Create
+        </router-link>
         <!-- <a href={{ route('order')}} class="btn btn-secondary">Orders</a> -->
     </form>
 
-
-<ShowProductsVue :products='products'/>
+    <ShowProductsVue :products='products' />
 </template>

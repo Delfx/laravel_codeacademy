@@ -3,16 +3,11 @@ defineProps({
     products: Array
 });
 
-
-
-
-
 // onBeforeMount(async () => {
 // 	let response = await axios.get('/api/v1/products');
 // 	products.value = response.data.data;
 // 	state.products = response.data.data;
 // });
-
 </script>
 
 <template>
@@ -24,8 +19,11 @@ defineProps({
                 </div>
                 <div class="card-body">
                     <h3>{{ product.description }}</h3>
-                    <a :href="`/products/view/${product.id}`" type="button"
-                        class="w-100 btn btn-lg btn-outline-primary">View</a>
+                    <h2 class="text-bg-success rounded">Price: {{ product.price }}</h2>
+                    <router-link class="w-100 btn btn-lg btn-outline-primary"
+                        :to="{ name: 'product', params: { productId: product.id } }">
+                        View
+                    </router-link>
                 </div>
             </div>
         </div>

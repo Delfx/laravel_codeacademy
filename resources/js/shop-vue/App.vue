@@ -5,6 +5,8 @@
 </script>
 
 <template>
-<!-- <ShowProducts/> -->
-<RouterView></RouterView>
+    <!-- <ShowProducts/> -->
+    <div class=" container">
+        <RouterView></RouterView>
+    </div>
 </template>

@@ -37,5 +37,12 @@ Route::prefix('v1')->group(function () {
         return ProductCategoryResource::collection(ProductCategory::limit(4)->get());
     });
 
+    Route::get('product/{id}', function($id){
+        return ProductResource::collection(Product::where('is_active', true)->where('id', $id)->get());
+    });
+
+    Route::post('product/update/{id}', [\App\Http\Controllers\api\v1\ProductController::class, 'update']);
+    
+    Route::post('product/create', [\App\Http\Controllers\api\v1\ProductController::class, 'create']);
 
 });
