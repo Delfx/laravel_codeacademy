@@ -12,40 +12,7 @@ const search = ref([]);
 
 const productsStore = useProductStore();
 
-productsStore.load().then((res) => {
-    products.value = res
-})
-
-
-
-
-// onBeforeMount(() => {
-//     setTimeout(() => {
-//         console.log('loading products', productsStore.load());
-//         //show spinner
-
-
-//     }, 2000);
-// })
-
-// function interval() {
-//     console.log("products: ", productsStore.products.length)
-
-// }
-
-// setInterval(interval, 1000);
-
-// interval();
-// productsStore.response.then((response) => {
-//     console.log(response);
-// });
-
-// products.value  = products2.load()
-
-
-// onMounted(async () => {
-//     console.log((await products2).response);
-// })
+productsStore.load();
 
 let url = '/api/v1/products'
 
@@ -129,5 +96,5 @@ axios.get('/api/v1/productcategory').then(response => {
         <!-- <a href={{ route('order')}} class="btn btn-secondary">Orders</a> -->
     </form>
 
-    <ShowProductsVue :products='products' />
+    <ShowProductsVue :products='productsStore.products' />
 </template>
