@@ -1,13 +1,51 @@
 <script setup>
 import axios from 'axios';
-import { ref } from 'vue';
+import { ref, computed, onMounted, onBeforeMount } from 'vue';
+import { useProductStore } from '../../store/ProductStore';
 import ShowProductsVue from './ShowProducts.vue';
 
-const selectedCategories = ref('0')
-const selectedPriceFilter = ref('0')
-const productCategories = ref([])
-const products = ref([])
-const search = ref([])
+const selectedCategories = ref('0');
+const selectedPriceFilter = ref('0');
+const productCategories = ref([]);
+const products = ref([]);
+const search = ref([]);
+
+const productsStore = useProductStore();
+
+productsStore.load().then((res) => {
+    products.value = res
+})
+
+
+
+
+// onBeforeMount(() => {
+//     setTimeout(() => {
+//         console.log('loading products', productsStore.load());
+//         //show spinner
+
+
+//     }, 2000);
+// })
+
+// function interval() {
+//     console.log("products: ", productsStore.products.length)
+
+// }
+
+// setInterval(interval, 1000);
+
+// interval();
+// productsStore.response.then((response) => {
+//     console.log(response);
+// });
+
+// products.value  = products2.load()
+
+
+// onMounted(async () => {
+//     console.log((await products2).response);
+// })
 
 let url = '/api/v1/products'
 
@@ -48,9 +86,9 @@ axios.get('/api/v1/productcategory').then(response => {
     productCategories.value = response.data.data;
 });
 
-axios.get(url).then(response => {
-    products.value = response.data.data;
-});
+// axios.get(url).then(response => {
+//     products.value = response.data.data;
+// });
 
 
 </script>
@@ -85,7 +123,7 @@ axios.get(url).then(response => {
         <button type="submit" id="submit" class="btn btn-primary me-1">Submit</button>
         <button @click="resetFilter" class="btn btn-danger m-1">Reset</button>
         <!-- <a href="/create" class="btn btn-warning m-1">Create</a> -->
-        <router-link class="btn btn-warning m-1" :to="{name: 'productCreate'}">
+        <router-link class="btn btn-warning m-1" :to="{ name: 'productCreate' }">
             Create
         </router-link>
         <!-- <a href={{ route('order')}} class="btn btn-secondary">Orders</a> -->
