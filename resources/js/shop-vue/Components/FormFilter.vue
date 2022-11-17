@@ -1,7 +1,7 @@
 <script setup>
 import axios from 'axios';
 import { ref, computed, onMounted, onBeforeMount } from 'vue';
-import { useProductStore } from '../../store/ProductStore';
+import { useProductStore } from '@/store/ProductStore';
 import ShowProductsVue from './ShowProducts.vue';
 
 const selectedCategories = ref('0');

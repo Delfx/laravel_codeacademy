@@ -36,8 +36,10 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
+            // eslint-disable-next-line no-undef
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
-            '@': path.resolve(__dirname, '../..'),
+            // eslint-disable-next-line no-undef
+            '@': path.resolve(__dirname, 'resources/js/'),
         }
     },
 });
