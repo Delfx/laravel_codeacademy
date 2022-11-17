@@ -1,22 +1,17 @@
 <script setup>
 import axios from 'axios';
-import { ref, computed, onMounted, onBeforeMount } from 'vue';
+import { ref, } from 'vue';
 import { useProductStore } from '@/store/ProductStore';
 import ShowProductsVue from './ShowProducts.vue';
 
 const selectedCategories = ref('0');
 const selectedPriceFilter = ref('0');
 const productCategories = ref([]);
-const products = ref([]);
 const search = ref([]);
 
 const productsStore = useProductStore();
 
-productsStore.load().then((res)=>{
-    products.value = res
-});
-
-let url = '/api/v1/products'
+productsStore.load();
 
 const filterByPrices = [
     { 'id': '1', 'name': 'Price Up' },
@@ -40,9 +35,7 @@ function getCategoryId() {
 }
 
 function onSubmit() {
-    axios.get(url + '?searchName=' + search.value + getCategoryId() + getPriceId()).then(response => {
-        products.value = response.data.data;
-    })
+    productsStore.getProductAfterSearch(`${'?searchName=' + search.value + getCategoryId() + getPriceId()}`)
 }
 
 function resetFilter() {
@@ -55,9 +48,6 @@ axios.get('/api/v1/productcategory').then(response => {
     productCategories.value = response.data.data;
 });
 
-// axios.get(url).then(response => {
-//     products.value = response.data.data;
-// });
 
 
 </script>
@@ -98,5 +88,5 @@ axios.get('/api/v1/productcategory').then(response => {
         <!-- <a href={{ route('order')}} class="btn btn-secondary">Orders</a> -->
     </form>
 
-    <ShowProductsVue :products='products' />
+    <ShowProductsVue :products='productsStore.products' />
 </template>

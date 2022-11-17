@@ -1,24 +1,19 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-export const useProductStore = defineStore('ProductStore', {
-    state: () => ({
-        products: [],
-    }),
+export const useProductStore = defineStore('ProductStore', () => {
+    const products = ref([]);
 
-    actions: {
-        async load() {
-            const response = await axios.get('/api/v1/products');
-            return this.products = response.data.data;
-        }
+    async function load() {
+        const res = await axios.get('/api/v1/products');
+        return products.value = res.data.data;
     }
+
+    async function getProductAfterSearch(formValues) {
+        const res = await axios.get('/api/v1/products' + formValues);
+        return products.value = res.data.data;
+    }
+
+    return { products, load, getProductAfterSearch }
 });
-
-// export const useProductStore = defineStore('ProductStore', () => {
-//     const products = ref([]);
-
-//     let load = axios.get('/api/v1/products').then(res => products.value = res.data.data);
-
-//     return {products, load}
-// });
