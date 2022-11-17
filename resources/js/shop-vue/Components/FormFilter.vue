@@ -12,7 +12,9 @@ const search = ref([]);
 
 const productsStore = useProductStore();
 
-productsStore.load();
+productsStore.load().then((res)=>{
+    products.value = res
+});
 
 let url = '/api/v1/products'
 
@@ -96,5 +98,5 @@ axios.get('/api/v1/productcategory').then(response => {
         <!-- <a href={{ route('order')}} class="btn btn-secondary">Orders</a> -->
     </form>
 
-    <ShowProductsVue :products='productsStore.products' />
+    <ShowProductsVue :products='products' />
 </template>
